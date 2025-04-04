@@ -31,9 +31,10 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-			if (chargeCooldownTimer.value > 0) { chargeCooldownTimer.SetValue(chargeCooldownTimer.value - Time.deltaTime); }
+			if (chargeCooldownTimer.value > 0) { chargeCooldownTimer.SetValue(chargeCooldownTimer.value - Time.deltaTime); } //reduce charge cooldown
 
-			if (Vector3.Distance(agent.transform.position, target.value.transform.position) <= range.value && chargeCooldownTimer.value <= 0)
+			if (Vector3.Distance(agent.transform.position, target.value.transform.position) <= range.value && chargeCooldownTimer.value <= 0) //if close to player and charge
+																																			  //cooldown is up, return true
 			{ return  true; } else { return false; }
 		}
 	}

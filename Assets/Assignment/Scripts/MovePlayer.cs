@@ -27,8 +27,8 @@ public class MovePlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        vel += Vector3.Normalize(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))) * speed * Time.deltaTime;
-        vel *= friction;
-        rb.velocity = vel;
+        vel += Vector3.Normalize(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"))) * speed * Time.deltaTime; //adjust player velocity
+        vel *= friction; //reduce velocity based on specified friction
+        rb.velocity = vel; //update player velocity
     }
 }
