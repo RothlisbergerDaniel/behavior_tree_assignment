@@ -1437,7 +1437,7 @@ MonoBehaviour:
     UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"},"reload":{"_name":"reload","_id":"8698a8e2-90a2-415e-ad34-e0a9618f4df0","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"shootMaxReload":{"_value":0.5,"_name":"shootMaxReload","_id":"7f891c7b-3b58-4b1d-b861-b2c7f444a11a","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"shootDelay":{"_value":1.0,"_name":"shootDelay","_id":"adc15554-b0dd-44ed-9ca1-9a6dfe6bda9b","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
-    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"buffMaxReload":{"_value":5.0,"_name":"buffMaxReload","_id":"79657415-d706-406e-a888-6f44373158e4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+    mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"buffMaxReload":{"_value":3.0,"_name":"buffMaxReload","_id":"79657415-d706-406e-a888-6f44373158e4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"buffDelay":{"_value":2.0,"_name":"buffDelay","_id":"45a593ab-960e-453f-95b5-0c7b4d323390","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"buffRadius":{"_value":15.0,"_name":"buffRadius","_id":"f5dd20af-2d48-4b46-a0cc-f0157636d187","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
     mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"},"bullet":{"_value":4,"_name":"bullet","_id":"f05cc36c-088d-4a23-9d87-757e2594d59c","$type":"NodeCanvas.Framework.Variable`1[[UnityEngine.GameObject,
@@ -1479,7 +1479,7 @@ MonoBehaviour:
   - _json: '{"_value":1.0,"_name":"shootDelay","_id":"adc15554-b0dd-44ed-9ca1-9a6dfe6bda9b","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
-  - _json: '{"_value":5.0,"_name":"buffMaxReload","_id":"79657415-d706-406e-a888-6f44373158e4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+  - _json: '{"_value":3.0,"_name":"buffMaxReload","_id":"79657415-d706-406e-a888-6f44373158e4","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
     _references: []
   - _json: '{"_value":2.0,"_name":"buffDelay","_id":"45a593ab-960e-453f-95b5-0c7b4d323390","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
