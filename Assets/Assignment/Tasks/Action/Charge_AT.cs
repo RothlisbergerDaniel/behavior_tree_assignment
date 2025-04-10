@@ -22,7 +22,10 @@ namespace NodeCanvas.Tasks.Actions {
 		private float cSpeed;			//
 		private float chargeDelayTimer; //
 		private float chargeTime; //how long to charge for.
-		private VariableContainer vc;
+		private MiscFunctionality vc;
+		private bool buffed;
+		private Rigidbody rb;
+		private Vector3 aimPoint;
 
 		//Use for initialization. This is called only once in the lifetime of the task.
 		//Return null if init was successfull. Return an error string otherwise
@@ -31,7 +34,8 @@ namespace NodeCanvas.Tasks.Actions {
 			cDistance = chargeDistance.value;
 			cSpeed = chargeSpeed.value;
             nma = navmesh.value;
-			vc = agent.GetComponent<VariableContainer>();
+			vc = agent.GetComponent<MiscFunctionality>();
+			rb = agent.GetComponent<Rigidbody>();
             aimPivot.SetActive(false);
             return null;
 		}
@@ -40,11 +44,21 @@ namespace NodeCanvas.Tasks.Actions {
 		//Call EndAction() to mark the action as finished, either in success or failure.
 		//EndAction can be called from anywhere.
 		protected override void OnExecute() {
-			chargeDelayTimer = 0; //set to zero so it can start counting up
-			chargeTime = cDistance / cSpeed; //set the time that the unit should stay in motion for once the charge activates
-			nma.SetDestination(agent.transform.position); //stop its movement in place
-			agent.transform.LookAt(target.value.transform.position); //aim at player
-			aimPivot.SetActive(true); //enable aim reticle
+			chargeDelayTimer = 0;
+			if (agent.GetComponent<ChargerBuffHandler>().buffTimer > 0 )
+			{
+				buffed = true;
+                chargeTime = cDistance / (cSpeed * 2);
+            } else
+			{
+				buffed = false;
+                chargeTime = cDistance / cSpeed;
+            }
+			
+			nma.SetDestination(agent.transform.position);
+			aimPoint = target.value.transform.position;
+            agent.transform.LookAt(aimPoint);
+			aimPivot.SetActive(true);
 		}
 
 		//Called once per frame while the action is active.
@@ -54,20 +68,41 @@ namespace NodeCanvas.Tasks.Actions {
 			{
                 aimPivot.SetActive(false); //disable aim reticle
 
-                vc.velocity = agent.transform.forward * cSpeed; //set velocity here??? Probably completely unnecessary???
-				chargeTime -= Time.deltaTime; //lower amount of time to stay in motion
-                nma.Move(vc.velocity * Time.deltaTime); //apply force to the agent
-                nma.SetDestination(agent.transform.position); //update destination so it doesn't try to move while charging
-                if (chargeTime <= 0 ) //if it should stop charging
+				if (buffed)
+				{
+                    vc.velocity = agent.transform.forward * cSpeed * 2;
+                } else
+				{
+                    vc.velocity = agent.transform.forward * cSpeed;
+                }
+                
+				chargeTime -= Time.deltaTime;
+				//rb.Move(rb.position + vc.velocity * Time.deltaTime, Quaternion.identity);
+                nma.Move(vc.velocity * Time.deltaTime);
+                nma.SetDestination(agent.transform.position);
+                if (chargeTime <= 0 )
 				{
                     vc.velocity = new Vector3();
-					chargeCooldownTimer.SetValue(chargeCooldown.value); //set cooldown to max value
+					if (buffed)
+					{
+                        chargeCooldownTimer.SetValue(chargeCooldown.value / 2); //set cooldown to half of max value when buffed
+                    }
+                    else
+                    {
+                        chargeCooldownTimer.SetValue(chargeCooldown.value); //set cooldown to max value
+                    }
+                    //chargeCooldownTimer.SetValue(chargeCooldown.value); //set cooldown to max value
                     EndAction(true); //end this action
 				}
 			} else //if it's winding up
 			{
+
                 chargeDelayTimer += Time.deltaTime; //increase the windup timer
                 aimPivot.transform.localScale = new Vector3(1, 1, (chargeDelayTimer / cDelay) * cDistance * 0.33f); //make reticle longer
+                nma.SetDestination(agent.transform.position);
+                agent.transform.LookAt(aimPoint);
+				agent.transform.eulerAngles = new Vector3(0, agent.transform.eulerAngles.y, 0);
+
             }
 
 		}
@@ -81,5 +116,5 @@ namespace NodeCanvas.Tasks.Actions {
 		protected override void OnPause() {
 			
 		}
-	}
+    }
 }

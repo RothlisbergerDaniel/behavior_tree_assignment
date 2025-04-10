@@ -6,19 +6,20 @@ using UnityEngine;
 
 namespace NodeCanvas.Tasks.Actions {
 
-	public class Huddle_AT : ActionTask {
-
+	public class Flee_AT : ActionTask {
+        
         public BBParameter<NavMeshAgent> navmesh;
         private NavMeshAgent nma;
-        public BBParameter<GameObject> ally;
-        private GameObject a;
+        public BBParameter<GameObject> target;
+        private GameObject t;
+        public float fleeDist; //how much to offset the flee position by
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
         protected override string OnInit()
         {
             nma = navmesh.value;
-            a = ally.value;
+            t = target.value;
             return null;
         }
 
@@ -27,7 +28,11 @@ namespace NodeCanvas.Tasks.Actions {
         //EndAction can be called from anywhere.
         protected override void OnExecute()
         {
-            nma.SetDestination(a.transform.position); //target ally to huddle up
+            float aim = Mathf.Atan2(t.transform.position.x - agent.transform.position.x, t.transform.position.z - agent.transform.position.z); //get angle to target
+            //agent.transform.eulerAngles = new Vector3(0, aim * Mathf.Rad2Deg, 0); //debug
+            
+            Vector3 fleePos =  new Vector3(Mathf.Cos(aim + 90 * Mathf.Deg2Rad), 0, Mathf.Sin(aim - 90 * Mathf.Deg2Rad)); //get aim pos as a unit vector to be added on to agent transform for flee
+            nma.SetDestination((agent.transform.position + fleePos * fleeDist));
             EndAction(true);
         }
 

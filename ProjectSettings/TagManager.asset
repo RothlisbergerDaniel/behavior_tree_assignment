@@ -6,6 +6,7 @@ TagManager:
   tags:
   - robot
   - garbage
+  - enemy
   layers:
   - Default
   - TransparentFX

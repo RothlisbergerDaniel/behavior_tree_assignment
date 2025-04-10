@@ -10,13 +10,13 @@ namespace NodeCanvas.Tasks.Actions {
 
         public BBParameter<NavMeshAgent> navmesh;
         private NavMeshAgent nma;
-        private VariableContainer vc; //screw this, mannnnn
+        private MiscFunctionality vc; //screw this, mannnnn
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
         protected override string OnInit() {
             nma = navmesh.value;
-            vc = agent.GetComponent<VariableContainer>();
+            vc = agent.GetComponent<MiscFunctionality>();
             return null;
 		}
 
